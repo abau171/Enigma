@@ -1,6 +1,7 @@
 import random
 import rotorsystem
 import plugboard
+import machine
 
 def randomRotor(numSymbols):
 	targets = set(symbolId for symbolId in range(numSymbols))
@@ -37,3 +38,14 @@ def randomPlugBoard(numSymbols, numCables):
 		unused.remove(b)
 		plugBoard.addCable(a, b)
 	return plugBoard
+
+def randomEnigmaMachine(symbols, numRotors, numCables):
+	numSymbols = len(symbols)
+	rotorSystem = randomRotorSystem(numSymbols, numRotors)
+	plugBoard = randomPlugBoard(numSymbols, numCables)
+	return machine.EnigmaMachine(symbols, rotorSystem, plugBoard)
+
+if __name__=="__main__":
+	random.seed(0)
+	m = randomEnigmaMachine("abcdefghijklmnopqrstuvwxyz", 3, 10)
+	print(m.feedSymbols("jclhpolqwpeql"))
