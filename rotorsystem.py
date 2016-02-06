@@ -1,5 +1,6 @@
 class Rotor:
-	def __init__(self, *mapDef):
+	def __init__(self, notches, *mapDef):
+		self.notches = notches
 		self.numSymbols = len(mapDef)
 		self._validateMapping(mapDef)
 		self.forwardMapping = {a: b for (a, b) in mapDef}
@@ -22,6 +23,12 @@ class Rotor:
 		return self._add(-self.rotation, self.forwardMapping[self._add(self.rotation, symbolId)])
 	def feedBackward(self, symbolId):
 		return self._add(-self.rotation, self.backwardMapping[self._add(self.rotation, symbolId)])
+	def advance(self):
+		advanceNext = False
+		if self.rotation in self.notches:
+			advanceNext = True
+		self.rotate(1)
+		return advanceNext
 
 class Reflector:
 	def __init__(self, *mapDef):
@@ -53,4 +60,8 @@ class RotorSystem:
 		curSymbolId = self.reflector.feed(curSymbolId)
 		for rotor in reversed(self.rotors):
 			curSymbolId = rotor.feedBackward(curSymbolId)
+		for rotor in self.rotors:
+			advanceNext = rotor.advance()
+			if not advanceNext:
+				break
 		return curSymbolId

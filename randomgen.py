@@ -3,14 +3,20 @@ import rotorsystem
 import plugboard
 import machine
 
-def randomRotor(numSymbols):
+def randomRotor(numSymbols, numNotches):
 	targets = set(symbolId for symbolId in range(numSymbols))
 	mapping = []
 	for source in range(numSymbols):
 		target = random.choice(tuple(targets))
 		targets.remove(target)
 		mapping.append((source, target))
-	return rotorsystem.Rotor(*tuple(mapping))
+	possibleNotches = set(symbolId for symbolId in range(numSymbols))
+	notches = set()
+	for _ in range(numNotches):
+		notch = random.choice(tuple(possibleNotches))
+		possibleNotches.remove(notch)
+		notches.add(notch)
+	return rotorsystem.Rotor(notches, *tuple(mapping))
 
 def randomReflector(numSymbols):
 	symbolIds = set(symbolId for symbolId in range(numSymbols))
@@ -23,8 +29,8 @@ def randomReflector(numSymbols):
 		mapping.append((a, b))
 	return rotorsystem.Reflector(*tuple(mapping))
 
-def randomRotorSystem(numSymbols, numRotors):
-	rotors = tuple(randomRotor(numSymbols) for _ in range(numRotors))
+def randomRotorSystem(numSymbols, numRotors, numNotchesPerRotor):
+	rotors = tuple(randomRotor(numSymbols, numNotchesPerRotor) for _ in range(numRotors))
 	reflector = randomReflector(numSymbols)
 	return rotorsystem.RotorSystem(reflector, *rotors)
 
@@ -39,13 +45,13 @@ def randomPlugBoard(numSymbols, numCables):
 		plugBoard.addCable(a, b)
 	return plugBoard
 
-def randomEnigmaMachine(symbols, numRotors, numCables):
+def randomEnigmaMachine(symbols, numRotors, numNotchesPerRotor, numCables):
 	numSymbols = len(symbols)
-	rotorSystem = randomRotorSystem(numSymbols, numRotors)
+	rotorSystem = randomRotorSystem(numSymbols, numRotors, numNotchesPerRotor)
 	plugBoard = randomPlugBoard(numSymbols, numCables)
 	return machine.EnigmaMachine(symbols, rotorSystem, plugBoard)
 
 if __name__=="__main__":
 	random.seed(0)
-	m = randomEnigmaMachine("abcdefghijklmnopqrstuvwxyz", 3, 10)
-	print(m.feedSymbols("jclhpolqwpeql"))
+	m = randomEnigmaMachine("abcdefghijklmnopqrstuvwxyz", 3, 1, 10)
+	print(m.feedSymbols("njglyciehoita"))
