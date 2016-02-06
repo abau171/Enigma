@@ -1,5 +1,6 @@
 import random
 import rotorsystem
+import plugboard
 
 def randomRotor(numSymbols):
 	targets = set(symbolId for symbolId in range(numSymbols))
@@ -23,5 +24,16 @@ def randomReflector(numSymbols):
 
 def randomRotorSystem(numSymbols, numRotors):
 	rotors = tuple(randomRotor(numSymbols) for _ in range(numRotors))
-	reflector = randomReflector(26)
+	reflector = randomReflector(numSymbols)
 	return rotorsystem.RotorSystem(reflector, *rotors)
+
+def randomPlugBoard(numSymbols, numCables):
+	plugBoard = plugboard.PlugBoard(26)
+	unused = set(symbolId for symbolId in range(numSymbols))
+	for _ in range(numCables):
+		a = random.choice(tuple(unused))
+		unused.remove(a)
+		b = random.choice(tuple(unused))
+		unused.remove(b)
+		plugBoard.addCable(a, b)
+	return plugBoard
