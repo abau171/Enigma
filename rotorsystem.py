@@ -1,4 +1,4 @@
-class Dial:
+class Rotor:
 	def __init__(self, *mapDef):
 		self.numSymbols = len(mapDef)
 		self._validateMapping(mapDef)
@@ -42,15 +42,15 @@ class Reflector:
 	def feed(self, symbolId):
 		return self.mapping[symbolId]
 
-class DialSystem:
-	def __init__(self, reflector, *dials):
+class RotorSystem:
+	def __init__(self, reflector, *rotors):
 		self.reflector = reflector
-		self.dials = dials
+		self.rotors = rotors
 	def feed(self, symbolId):
 		curSymbolId = symbolId
-		for dial in self.dials:
-			curSymbolId = dial.feedForward(curSymbolId)
+		for rotor in self.rotors:
+			curSymbolId = rotor.feedForward(curSymbolId)
 		curSymbolId = self.reflector.feed(curSymbolId)
-		for dial in reversed(self.dials):
-			curSymbolId = dial.feedBackward(curSymbolId)
+		for rotor in reversed(self.rotors):
+			curSymbolId = rotor.feedBackward(curSymbolId)
 		return curSymbolId

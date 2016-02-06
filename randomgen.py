@@ -1,14 +1,14 @@
 import random
-import dialsystem
+import rotorsystem
 
-def randomDial(numSymbols):
+def randomRotor(numSymbols):
 	targets = set(symbolId for symbolId in range(numSymbols))
 	mapping = []
 	for source in range(numSymbols):
 		target = random.choice(tuple(targets))
 		targets.remove(target)
 		mapping.append((source, target))
-	return dialsystem.Dial(*tuple(mapping))
+	return rotorsystem.Rotor(*tuple(mapping))
 
 def randomReflector(numSymbols):
 	symbolIds = set(symbolId for symbolId in range(numSymbols))
@@ -19,9 +19,9 @@ def randomReflector(numSymbols):
 		b = random.choice(tuple(symbolIds))
 		symbolIds.remove(b)
 		mapping.append((a, b))
-	return dialsystem.Reflector(*tuple(mapping))
+	return rotorsystem.Reflector(*tuple(mapping))
 
-def randomDialSystem(numSymbols, numDials):
-	dials = tuple(randomDial(numSymbols) for _ in range(numDials))
+def randomRotorSystem(numSymbols, numRotors):
+	rotors = tuple(randomRotor(numSymbols) for _ in range(numRotors))
 	reflector = randomReflector(26)
-	return dialsystem.DialSystem(reflector, *dials)
+	return rotorsystem.RotorSystem(reflector, *rotors)
