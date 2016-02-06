@@ -1,20 +1,12 @@
 class Rotor:
-	def __init__(self, notches, *mapDef):
+	def __init__(self, forwardMapping, notches=set()):
 		self.notches = notches
-		self.numSymbols = len(mapDef)
-		self._validateMapping(mapDef)
-		self.forwardMapping = {a: b for (a, b) in mapDef}
-		self.backwardMapping = {b: a for (a, b) in mapDef}
+		self.numSymbols = len(forwardMapping)
+		self.forwardMapping = forwardMapping
+		self.backwardMapping = [None] * len(forwardMapping)
+		for i in range(len(self.forwardMapping)):
+			self.backwardMapping[self.forwardMapping[i]] = i
 		self.rotation = 0
-	def _validateMapping(self, mapDef):
-		sources = set(symbolId for symbolId in range(self.numSymbols))
-		targets = set(symbolId for symbolId in range(self.numSymbols))
-		for (a, b) in mapDef:
-			assert a in sources
-			sources.remove(a)
-			assert b in targets
-			targets.remove(b)
-		assert len(sources) == 0 and len(targets) == 0
 	def _add(self, a, b):
 		return (a + b) % self.numSymbols
 	def rotate(self, dRotation):
@@ -31,21 +23,8 @@ class Rotor:
 		return advanceNext
 
 class Reflector:
-	def __init__(self, *mapDef):
-		self.numSymbols = len(mapDef) * 2
-		self._validateMapping(mapDef)
-		self.mapping = dict()
-		for (a, b) in mapDef:
-			self.mapping[a] = b
-			self.mapping[b] = a
-	def _validateMapping(self, mapDef):
-		symbolIds = set(symbolId for symbolId in range(self.numSymbols))
-		for (a, b) in mapDef:
-			assert a in symbolIds
-			symbolIds.remove(a)
-			assert b in symbolIds
-			symbolIds.remove(b)
-		assert len(symbolIds) == 0
+	def __init__(self, mapping):
+		self.mapping = mapping
 	def feed(self, symbolId):
 		return self.mapping[symbolId]
 
