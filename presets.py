@@ -12,10 +12,11 @@ def makeRotor(string, notchesChars=set()):
 
 reflectorB = rotorsystem.Reflector(stringToIds("YRUHQSLDPXNGOKMIEBFZCWVJAT"))
 reflectorC = rotorsystem.Reflector(stringToIds("FVPJIAOYEDRZXWGCTKUQSBNMHL"))
+reflectorCThin = rotorsystem.Reflector(stringToIds("RDOBJNTKVEHMLFCWZAXGYIPSUQ"))
 rotor1 = makeRotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ")
 rotor2 = makeRotor("AJDKSIRUXBLHWTMCQGZNPYFVOE")
 rotor3 = makeRotor("BDFHJLCPRTXVZNYEIWGAKMUSQO")
 rotor5 = makeRotor("VZBRGITYUPSDNHLXAWMJQOFECK", {"Z"})
 rotor6 = makeRotor("JPGVOUMFYQBENHZRDKASXLICTW")
-rotor8 = makeRotor("FKQHTLXOCBJSPDZRAMEWNIUYGV")
+rotor8 = makeRotor("FKQHTLXOCBJSPDZRAMEWNIUYGV", {"M"})
 rotorBeta = makeRotor("LEYJVCNIXWPBQMDRTAKZGFUHOS")

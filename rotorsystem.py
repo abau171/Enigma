@@ -7,14 +7,19 @@ class Rotor:
 		for i in range(len(self.forwardMapping)):
 			self.backwardMapping[self.forwardMapping[i]] = i
 		self.rotation = 0
+		self.ringRotation = 0
 	def _add(self, a, b):
 		return (a + b) % self.numSymbols
 	def rotate(self, dRotation):
 		self.rotation = self._add(self.rotation, dRotation)
+	def setRingRotation(self, ringRotation):
+		self.ringRotation = ringRotation
 	def feedForward(self, symbolId):
-		return self._add(-self.rotation, self.forwardMapping[self._add(self.rotation, symbolId)])
+		wireRot = self.rotation - self.ringRotation
+		return self._add(-wireRot, self.forwardMapping[self._add(wireRot, symbolId)])
 	def feedBackward(self, symbolId):
-		return self._add(-self.rotation, self.backwardMapping[self._add(self.rotation, symbolId)])
+		wireRot = self.rotation - self.ringRotation
+		return self._add(-wireRot, self.backwardMapping[self._add(wireRot, symbolId)])
 	def advance(self):
 		advanceNext = False
 		if self.rotation in self.notches:
