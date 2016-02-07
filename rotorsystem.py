@@ -33,14 +33,14 @@ class RotorSystem:
 		self.reflector = reflector
 		self.rotors = rotors
 	def feed(self, symbolId):
+		for rotor in self.rotors:
+			advanceNext = rotor.advance()
+			if not advanceNext:
+				break
 		curSymbolId = symbolId
 		for rotor in self.rotors:
 			curSymbolId = rotor.feedForward(curSymbolId)
 		curSymbolId = self.reflector.feed(curSymbolId)
 		for rotor in reversed(self.rotors):
 			curSymbolId = rotor.feedBackward(curSymbolId)
-		for rotor in self.rotors:
-			advanceNext = rotor.advance()
-			if not advanceNext:
-				break
 		return curSymbolId
