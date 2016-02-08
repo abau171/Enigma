@@ -6,9 +6,9 @@ def charToId(character):
 def stringToIds(string):
 	return [charToId(character) for character in string]
 
-def makeRotor(string, notchesChars=set()):
+def makeRotor(string, notchesChars=set(), canBeAdvanced=True, canDoubleStep=False):
 	notches = set(charToId(character) for character in notchesChars)
-	return rotorsystem.Rotor(stringToIds(string), notches)
+	return rotorsystem.Rotor(stringToIds(string), notches, canBeAdvanced=canBeAdvanced, canDoubleStep=canDoubleStep)
 
 reflectorB = rotorsystem.Reflector(stringToIds("YRUHQSLDPXNGOKMIEBFZCWVJAT"))
 reflectorC = rotorsystem.Reflector(stringToIds("FVPJIAOYEDRZXWGCTKUQSBNMHL"))
@@ -16,7 +16,7 @@ reflectorCThin = rotorsystem.Reflector(stringToIds("RDOBJNTKVEHMLFCWZAXGYIPSUQ")
 rotor1 = makeRotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ")
 rotor2 = makeRotor("AJDKSIRUXBLHWTMCQGZNPYFVOE")
 rotor3 = makeRotor("BDFHJLCPRTXVZNYEIWGAKMUSQO")
-rotor5 = makeRotor("VZBRGITYUPSDNHLXAWMJQOFECK", {"Z"})
-rotor6 = makeRotor("JPGVOUMFYQBENHZRDKASXLICTW")
-rotor8 = makeRotor("FKQHTLXOCBJSPDZRAMEWNIUYGV", {"M"})
-rotorBeta = makeRotor("LEYJVCNIXWPBQMDRTAKZGFUHOS")
+rotor5 = makeRotor("VZBRGITYUPSDNHLXAWMJQOFECK", {"D"})
+rotor6 = makeRotor("JPGVOUMFYQBENHZRDKASXLICTW", {"Z", "M"}, canDoubleStep=True)
+rotor8 = makeRotor("FKQHTLXOCBJSPDZRAMEWNIUYGV", {"Z", "M"})
+rotorBeta = makeRotor("LEYJVCNIXWPBQMDRTAKZGFUHOS", canBeAdvanced=False)
