@@ -1,7 +1,7 @@
 import rotorsystem, plugboard, machine
 import presets
 
-m = presets.StringEnigmaMachine("ABCDEFGHIJKLMNOPQRSTUVWXYZ", presets.reflectorCThin, presets.rotorBeta, presets.rotor5, presets.rotor6, presets.rotor8)
+m = presets.StringEnigmaMachine("ABCDEFGHIJKLMNOPQRSTUVWXYZ", presets.ReflectorCThin(), presets.RotorBeta(), presets.Rotor5(), presets.Rotor6(), presets.Rotor8())
 m.ringSetting("EPEL")
 m.startPosition("NAEM")
 m.setCables("AE BF CM DQ HU JN LX PR SZ VW")

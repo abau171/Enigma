@@ -30,5 +30,5 @@ class EnigmaMachine:
 		curSymbolId = self.plugBoard.feed(curSymbolId)
 		return self.getSymbol(curSymbolId)
 	def feedSymbols(self, inputSymbols):
-		return [self.feedSymbol(inputSymbol) for inputSymbol in inputSymbols]
-
+		result = [self.feedSymbol(inputSymbol) for inputSymbol in inputSymbols]
+		return result
