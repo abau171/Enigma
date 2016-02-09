@@ -1,5 +1,4 @@
-import machine
-import rotorsystem
+import machine, rotorsystem
 
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -41,13 +40,13 @@ class StringEnigmaMachine(machine.EnigmaMachine):
 	def feedSymbols(self, inputSymbols):
 		return "".join(machine.EnigmaMachine.feedSymbols(self, [char for char in inputSymbols]))
 
-Rotor1 = genAlphabetRotor("RDOBJNTKVEHMLFCWZAXGYIPSUQ")
-Rotor2 = genAlphabetRotor("AJDKSIRUXBLHWTMCQGZNPYFVOE")
-Rotor3 = genAlphabetRotor("BDFHJLCPRTXVZNYEIWGAKMUSQO")
-Rotor4 = genAlphabetRotor("ESOVPZJAYQUIRHXLNFTGKDCMWB")
-Rotor5 = genAlphabetRotor("VZBRGITYUPSDNHLXAWMJQOFECK", {"D"}, doubleStepEnabled=True)
+Rotor1 = genAlphabetRotor("RDOBJNTKVEHMLFCWZAXGYIPSUQ", {"Q"}, doubleStepEnabled=True)
+Rotor2 = genAlphabetRotor("AJDKSIRUXBLHWTMCQGZNPYFVOE", {"E"}, doubleStepEnabled=True)
+Rotor3 = genAlphabetRotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", {"V"}, doubleStepEnabled=True)
+Rotor4 = genAlphabetRotor("ESOVPZJAYQUIRHXLNFTGKDCMWB", {"J"}, doubleStepEnabled=True)
+Rotor5 = genAlphabetRotor("VZBRGITYUPSDNHLXAWMJQOFECK", {"Z"}, doubleStepEnabled=True)
 Rotor6 = genAlphabetRotor("JPGVOUMFYQBENHZRDKASXLICTW", {"Z", "M"}, doubleStepEnabled=True)
-Rotor7 = genAlphabetRotor("NZJHGRCXMYSWBOUFAIVLPEKQDT")
+Rotor7 = genAlphabetRotor("NZJHGRCXMYSWBOUFAIVLPEKQDT", {"Z", "M"}, doubleStepEnabled=True)
 Rotor8 = genAlphabetRotor("FKQHTLXOCBJSPDZRAMEWNIUYGV", {"Z", "M"}, doubleStepEnabled=True)
 RotorBeta = genAlphabetRotor("LEYJVCNIXWPBQMDRTAKZGFUHOS", advancingEnabled=False)
 RotorGamma = genAlphabetRotor("FSOKANUERHMBTIYCWLQPZXVGJD", advancingEnabled=False)

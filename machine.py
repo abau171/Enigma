@@ -21,8 +21,7 @@ class EnigmaMachine:
 		self.rotorSystem.startPosition(*convertedStartPositions)
 	def setCables(self, *cables):
 		convertedCables = tuple((self.getSymbolId(a), self.getSymbolId(b)) for a, b in cables)
-		self.plugBoard.removeAllCables()
-		self.plugBoard.addCables(*convertedCables)
+		self.plugBoard.setCables(*convertedCables)
 	def feedSymbol(self, inputSymbol):
 		curSymbolId = self.getSymbolId(inputSymbol)
 		curSymbolId = self.plugBoard.feed(curSymbolId)
