@@ -85,6 +85,12 @@ class RotorSystem:
 	def __init__(self, reflector, *rotors):
 		self.reflector = reflector
 		self.rotors = tuple(reversed(rotors))
+	def ringSetting(self, *ringSettings):
+		for rotor, rotation in zip(self.rotors, reversed(ringSettings)):
+			rotor.setRingRotation(rotation)
+	def startPosition(self, *startPositions):
+		for rotor, rotation in zip(self.rotors, reversed(startPositions)):
+			rotor.setRotation(rotation)
 	def advanceRotors(self):
 		isDoubleStep = False
 		for rotor in self.rotors:
